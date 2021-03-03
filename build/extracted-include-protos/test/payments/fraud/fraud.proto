@@ -1,0 +1,55 @@
+syntax = "proto3" ;
+
+package payments.fraud;
+
+//import "payments/payment.proto";
+
+
+import "google/protobuf/timestamp.proto";
+
+option java_package = "com.proto.payments.fraud";
+
+option java_multiple_files = true;
+
+message FraudCheckData {
+
+  string clientName = 1 ;
+  string clientAccount = 2 ;
+  string currency = 3 ;
+  string beneName = 4 ;
+  string beneAccount = 5 ;
+  string beneBank = 6 ;
+  string srcRefid = 7;
+  string paymentType = 8 ;
+  bool bookTransfer = 9 ;
+
+  google.protobuf.Timestamp paymentReceiveDate = 10 ;
+
+  google.protobuf.Timestamp  settlementDate = 11;
+
+
+
+
+}
+
+message FraudCheckRequest {
+
+    FraudCheckData fraudData = 1;
+
+
+}
+
+message FraudCheckResponse {
+
+  string srcRefId = 1;
+  bool fraudCheckStatus = 2;
+  string message = 3 ;
+
+
+}
+
+service FraudCheckService {
+
+  rpc FraudCheck (FraudCheckRequest) returns (FraudCheckResponse) {} ;
+
+}

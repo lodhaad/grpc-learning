@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package sum ;
+
+option java_package = "com.proto.calculator";
+
+option java_multiple_files = true;
+
+message SumRequest {
+  int32  number1 = 1;
+  int32  number2 = 2 ;
+}
+
+message SumResponse {
+  int32 sum = 1;
+}
+
+message PrimeNumberDecompositionRequest {
+
+  int32  number = 1 ;
+
+}
+
+message PrimeNumberDecomposionResponse {
+
+  int32 number = 1;
+
+}
+
+message AverageNumberReqest {
+
+  int32  number = 1;
+
+}
+
+message AverageNumberResponse {
+
+  float  average = 1;
+
+}
+
+
+message MaxNumberRequest {
+  int32  numberInput = 1;
+
+}
+
+message MaxNumberResponse {
+  int32  numberOutput = 1;
+}
+
+message SquareRootInput  {
+
+  int32 inputForSquare = 1;
+
+}
+
+message SquareRootOutput {
+  double squareRoot =1 ;
+}
+
+
+service CalculatorService {
+
+  rpc SumTwoNumbers (SumRequest) returns ( SumResponse ) {};
+
+  rpc PrimeNumberDecomposition (PrimeNumberDecompositionRequest ) returns ( stream PrimeNumberDecomposionResponse ) {}
+
+  rpc Average ( stream AverageNumberReqest ) returns (AverageNumberResponse) { };
+
+
+
+  rpc MaximumStream (stream MaxNumberRequest ) returns (stream MaxNumberResponse) { } ;
+
+  // this methos
+
+  rpc SquareRoot ( SquareRootInput ) returns (SquareRootOutput ) { } ;
+}

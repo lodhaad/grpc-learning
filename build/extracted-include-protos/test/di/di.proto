@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package di;
+
+option java_package = "com.proto.di";
+option java_multiple_files = true ;
+
+message DummyMessage {
+
+  string name = 1;
+
+}
+
+message DummyRequest {
+
+  DummyMessage message = 1;
+
+}
+
+message DummyResponse {
+
+  DummyMessage message = 1;
+
+}
+
+service DummyService {
+
+  rpc DummyFunction (DummyRequest) returns (DummyResponse) { };
+
+
+}

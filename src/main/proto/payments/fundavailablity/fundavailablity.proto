@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package payments;
+
+option java_package = "com.proto.payments.fundavailablity";
+
+option java_multiple_files = true;
+
+message FundAvailablityOnCreditTransfer  {
+   string clientAccount = 1 ;
+   float debitAmount = 2 ;
+}
+
+message FundAvailablityOnCreditTransferRequest {
+
+    FundAvailablityOnCreditTransfer fundAvaialblity = 1 ;
+
+}
+
+message FundAvailablityOnCreditTransferResponse {
+
+  string clientAccount = 1 ;
+  bool availablityStatus = 2 ;
+}
+
+service FundAvailablityService {
+
+  rpc CheckFundAvailablity (FundAvailablityOnCreditTransferRequest) returns (FundAvailablityOnCreditTransferResponse)
+  {};
+}

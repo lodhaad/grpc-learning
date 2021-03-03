@@ -1,0 +1,45 @@
+syntax = "proto3" ;
+
+package payments.validation;
+
+import "payments/payment.proto";
+
+
+option java_package = "com.proto.payments.validation";
+
+option java_multiple_files = true;
+
+
+
+
+message ValidationRequest  {
+
+    payments.CreditPaymentRequest payment = 1;
+
+}
+
+
+message ValidationResponse  {
+
+  string sourceRefId = 1;
+  ValidationStatus vaidationState = 2 ;
+
+}
+
+message ValidationStatus {
+
+  bool validationStatus = 1;
+  repeated  string validationMessage = 2;
+
+
+}
+
+
+
+
+service ValidationService {
+
+  rpc ValidateBasePayment ( ValidationRequest ) returns ( ValidationResponse ) {};
+
+}
+

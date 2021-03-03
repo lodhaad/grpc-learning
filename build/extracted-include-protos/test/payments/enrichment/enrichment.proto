@@ -1,0 +1,55 @@
+syntax = "proto3" ;
+
+package payments.enrichment;
+
+import "payments/payment.proto";
+
+
+option java_package = "com.proto.payments.enrichment";
+
+option java_multiple_files = true;
+
+message EnrichedBasePaymentRequest {
+
+  payments.CreditPaymentRequest request = 1;
+
+}
+
+
+message EnrichedBasePayment {
+
+  string srcRef = 1;
+  ///enriched fields
+  string beneBankAdress = 2 ;
+  string beneBankBIC = 3 ;
+  string country = 4 ;
+  string paymentCurrency = 5;
+  string paymentType = 6 ;
+
+
+
+}
+
+message EnrichmentStatus {
+
+  bool enrichmentStatus = 1 ;
+  string enrichmentMessage = 2 ;
+}
+
+message EnrichedBasePaymentResponse {
+
+
+  EnrichedBasePayment enrichedData = 1 ;
+  bool enrichmentStatus = 2;
+  string message = 3 ;
+
+
+
+}
+
+
+service BaseEnrichService {
+
+  rpc EnrichBaseCreditPayment ( EnrichedBasePaymentRequest ) returns ( EnrichedBasePaymentResponse ) ;
+
+}

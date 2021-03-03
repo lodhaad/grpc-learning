@@ -1,0 +1,129 @@
+syntax = "proto3";
+
+package payments;
+
+import "google/protobuf/timestamp.proto";
+
+option java_package = "com.proto.payments";
+
+option java_multiple_files = true;
+
+enum AccountType {
+
+  CORPORATE = 0 ;
+  BANK = 1 ;
+  FI = 2 ;
+
+}
+
+message CreditPaymentRequest {
+
+  string srcRef = 1;
+  string clientAccount = 2;
+  double amount = 3;
+  string currency = 4;
+  string beneAccount = 5;
+  string beneBank = 6 ;
+  string beneName = 7 ;
+  string clientName = 8;
+
+}
+
+
+message DebitPaymentRequest {
+
+  string srcRef = 1;
+  string clientAccount = 2;
+  double amount = 3;
+  string currency = 4;
+  string counterPartyAccount = 5;
+  string counterPartyBank = 6 ;
+  string counterPartyName = 7 ;
+  string clientName = 8;
+
+
+
+
+
+}
+
+// this is the processing status
+
+message Status {
+
+  string eventName = 1 ;
+
+  google.protobuf.Timestamp timeStampOfEvent = 2;
+
+  string originationService = 3;
+
+
+
+}
+
+
+message CreditPaymentResponse {
+
+  string srcRef = 1;
+  repeated Status statuses = 2;
+
+}
+
+message DebitPaymentResponse {
+
+  string srcRef = 1;
+  repeated Status statuses = 2;
+
+}
+
+
+message SingaporeCreditPaymentRequest {
+
+  CreditPaymentRequest basePayment = 1 ;
+  SingaporeRTPType RTPtype = 2 ;
+  SingaporeProxy proxyType = 3 ;
+  string proxyValue = 4 ;
+
+
+
+}
+
+enum SingaporeProxy {
+
+  NRIC = 0 ;
+  PASSPORT = 1 ;
+
+}
+
+enum SingaporeRTPType {
+  FAST = 0 ;
+  NETS = 1 ;
+}
+
+
+
+
+
+service PaymentService {
+
+  rpc ProcessClientCreditPayment ( CreditPaymentRequest ) returns ( CreditPaymentResponse) {} ;
+
+
+  rpc ProcessSingaporeClientCreditPayment ( SingaporeCreditPaymentRequest ) returns ( CreditPaymentResponse ) {} ;
+
+
+  rpc ProcessClientDebitPayment ( DebitPaymentRequest ) returns ( DebitPaymentResponse ) {} ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
